@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import List from "./List";
+import GroceryForm from "./GroceryForm";
 
 class App extends React.Component {
   state = {
@@ -11,10 +12,20 @@ class App extends React.Component {
     ],
   };
 
+  addItem = (item) => {
+    const { groceries } = this.state;
+    const newItem = { name: item, id: Math.random(), complete: false };
+    this.setState({
+      groceries: [newItem, ...groceries],
+    });
+  };
+
   render() {
     return (
       <>
         <List groceries={this.state.groceries} />
+        <br />
+        <GroceryForm add={this.addItem} />
       </>
     );
   }
