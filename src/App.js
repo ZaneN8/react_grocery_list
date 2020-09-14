@@ -8,7 +8,7 @@ class App extends React.Component {
     groceries: [
       { id: 1, name: "Paper Towels", complete: false },
       { id: 2, name: "Cereal", complete: false },
-      { id: 3, name: "Soda", complete: false },
+      { id: 3, name: "Soda", complete: true },
     ],
   };
 
@@ -20,10 +20,26 @@ class App extends React.Component {
     });
   };
 
+  handleClick = (id) => {
+    const { groceries } = this.state;
+    const newItems = groceries.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          complete: !item.complete,
+        };
+      }
+      return item;
+    });
+    this.setState({
+      groceries: newItems,
+    });
+  };
+
   render() {
     return (
       <>
-        <List groceries={this.state.groceries} />
+        <List groceries={this.state.groceries} itemClick={this.handleClick} />
         <br />
         <GroceryForm add={this.addItem} />
       </>
